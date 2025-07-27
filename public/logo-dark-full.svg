@@ -1,0 +1,31 @@
+<svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .box {
+      stroke: #e5e7eb; /* Tailwind's gray-200 */
+      fill: none;
+      stroke-width: 2.2;
+    }
+
+    .letter {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 26px;
+      fill: #f3f4f6; /* Tailwind's gray-100 */
+    }
+
+    .name {
+      font-family: 'Arial', sans-serif;
+      font-size: 20px;
+      fill: #d1d5db; /* Tailwind's gray-300 */
+    }
+  </style>
+
+  <!-- Cube-like box -->
+  <polygon class="box" points="10,10 50,8 52,48 12,50 10,10" />
+
+  <!-- F inside the box -->
+  <text class="letter" x="22" y="38">F</text>
+
+  <!-- Brand name -->
+  <text class="name" x="70" y="38">FocusNode</text>
+</svg>
