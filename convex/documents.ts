@@ -28,25 +28,51 @@ export const create = mutation({
 	},
 });
 
-export const get = query({
+export const getSidebar = query({
 	args: {
-		userId: v.optional(v.string()),
+		parentDocument: v.optional(v.id("documents")),
 	},
 	handler: async (ctx, args) => {
-		const identity = ctx.auth.getUserIdentity();
+		const identity = await ctx.auth.getUserIdentity();
 
 		if (!identity) {
 			throw new Error("Not authenticated");
 		}
 
-		const documents = ctx.db.query("documents");
+		const userId = identity.subject;
 
-		if (args.userId) {
-			return await documents
-				.withIndex("by_user", (q) => q.eq("userId", args.userId!))
-				.collect();
-		}
+		const documents = await ctx.db
+			.query("documents")
+			.withIndex("by_user_parent", (q) =>
+				q.eq("userId", userId).eq("parentDocument", args.parentDocument)
+			)
+			.filter((q) => q.eq(q.field("isArchived"), false))
+			.order("desc")
+			.collect();
 
-		return await documents.collect();
+		return documents;
 	},
 });
+
+// export const get = query({
+// 	args: {
+// 		userId: v.optional(v.string()),
+// 	},
+// 	handler: async (ctx, args) => {
+// 		const identity = ctx.auth.getUserIdentity();
+
+// 		if (!identity) {
+// 			throw new Error("Not authenticated");
+// 		}
+
+// 		const documents = ctx.db.query("documents");
+
+// 		if (args.userId) {
+// 			return await documents
+// 				.withIndex("by_user", (q) => q.eq("userId", args.userId!))
+// 				.collect();
+// 		}
+
+// 		return await documents.collect();
+// 	},
+// });

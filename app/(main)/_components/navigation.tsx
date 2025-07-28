@@ -12,17 +12,15 @@ import { usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./user-item";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { Item } from "./item";
 import { toast } from "sonner";
+import { DocumentList } from "./document-list";
 
 export const Navigation = () => {
 	const { user } = useUser();
-	const documents = useQuery(api.documents.get, {
-		userId: user?.id,
-	});
 	const pathname = usePathname();
 	const isMobile = useMediaQuery("(max-width: 768px)");
 	const create = useMutation(api.documents.create);
@@ -170,9 +168,7 @@ export const Navigation = () => {
 					/>
 				</div>
 				<div className="mt-4">
-					{documents?.map((document) => (
-						<p key={document._id}>{document.title}</p>
-					))}
+					<DocumentList />
 				</div>
 				<div
 					onMouseDown={handleMouseDown}
