@@ -27,13 +27,14 @@ import {
 } from "@/components/ui/popover";
 import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 export const Navigation = () => {
-	const { user } = useUser();
 	const pathname = usePathname();
 	const isMobile = useMediaQuery("(max-width: 768px)");
 	const create = useMutation(api.documents.create);
 	const onOpenSearch = useSearch((state) => state.onOpen);
+	const onOpenSettings = useSettings((state) => state.onOpen);
 
 	const isResizingRef = useRef(false);
 	const sidebarRef = useRef<ComponentRef<"aside">>(null);
@@ -93,7 +94,6 @@ export const Navigation = () => {
 	};
 
 	const resetWidth = () => {
-		console.log("reset width");
 		if (sidebarRef.current && navbarRef.current) {
 			setIsCollapsed(false);
 			setIsResetting(true);
@@ -170,7 +170,11 @@ export const Navigation = () => {
 						isSearch
 						onClick={onOpenSearch}
 					/>
-					<Item label="Settings" icon={Settings} onClick={() => {}} />
+					<Item
+						label="Settings"
+						icon={Settings}
+						onClick={onOpenSettings}
+					/>
 					<Item
 						onClick={handleCreate}
 						label="New page"

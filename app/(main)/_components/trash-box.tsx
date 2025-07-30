@@ -90,7 +90,7 @@ export const TrashBox = () => {
 						<span className="truncate pl-2">{document.title}</span>
 						<div className="flex items-center mr-2">
 							<div
-								className="rounded-lg p-2 hover:bg-neutral-200"
+								className="rounded-lg p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
 								role="button"
 								onClick={(e) => onRestore(e, document._id)}
 							>
@@ -100,7 +100,7 @@ export const TrashBox = () => {
 								onConfirm={() => onRemove(document._id)}
 							>
 								<div
-									className="rounded-lg p-2 hover:bg-neutral-200"
+									className="rounded-lg p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
 									role="button"
 								>
 									<Trash className="h-4 w-4 text-muted-foreground" />
