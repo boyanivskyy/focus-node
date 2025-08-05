@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { ConvexClientProvider } from "@/providers/convex-provider";
 import { Toaster } from "sonner";
 import { ModalProvider } from "@/providers/modal-provider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -46,17 +47,19 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<ConvexClientProvider>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-						storageKey="focusnode-theme"
-					>
-						<Toaster position="bottom-center" />
-						<ModalProvider />
-						{children}
-					</ThemeProvider>
+					<EdgeStoreProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							enableSystem
+							disableTransitionOnChange
+							storageKey="focusnode-theme"
+						>
+							<Toaster position="bottom-center" />
+							<ModalProvider />
+							{children}
+						</ThemeProvider>
+					</EdgeStoreProvider>
 				</ConvexClientProvider>
 			</body>
 		</html>
